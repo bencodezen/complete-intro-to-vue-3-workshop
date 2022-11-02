@@ -24,6 +24,9 @@ export default {
     showLoginPage() {
       this.currentPage = "Login";
     },
+    showUserPage() {
+      this.currentPage = "User";
+    },
   },
 };
 </script>
@@ -36,9 +39,11 @@ export default {
     <nav class="nav">
       <a href="#" @click.prevent="showHomePage">Home</a>
       <a href="#" @click.prevent="showLoginPage">Login</a>
+      <a href="#" @click.prevent="showUserPage">User</a>
     </nav>
   </header>
-  <component :is="renderPage" />
+
+  <component :is="renderPage" :key="renderPage" />
 </template>
 
 <style>
