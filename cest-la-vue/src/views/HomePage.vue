@@ -1,10 +1,8 @@
 <script setup>
-import { userList } from "../composables/useUserStore";
 import { computed } from "vue";
+import { useUserStore } from "../stores/UserStore";
 
-const shortUserList = computed(() => {
-  return userList.value.splice(0, 5);
-});
+const userStore = useUserStore();
 </script>
 
 <template>
@@ -16,7 +14,7 @@ const shortUserList = computed(() => {
     </p>
     <hr />
     <ul>
-      <li v-for="user in shortUserList">
+      <li v-for="user in userStore.shortUserList">
         {{ user.name }}
       </li>
     </ul>
