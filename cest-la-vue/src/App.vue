@@ -1,14 +1,16 @@
 <script>
 import HomePage from "./components/HomePage.vue";
 import LoginPage from "./components/LoginPage.vue";
+import UserPage from "./components/UserPage.vue";
 
 export default {
   components: {
     HomePage,
     LoginPage,
+    UserPage,
   },
   data: () => ({
-    currentPage: "Home",
+    currentPage: "User",
   }),
   computed: {
     renderPage() {
