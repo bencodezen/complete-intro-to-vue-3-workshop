@@ -42,11 +42,13 @@ export default {
   <h2>New Counter</h2>
   <p>Global Count: {{ countStore.globalCount }}</p>
   <p>Local Count: {{ countStore.localCount }}</p>
-  <button @click="countStore.incrementGlobalCount">Global</button>
-  <button @click="countStore.incrementLocalCount">Local</button>
+  <button class="button" @click="countStore.incrementGlobalCount">
+    Global
+  </button>
+  <button class="button" @click="countStore.incrementLocalCount">Local</button>
   <hr />
   <p :data-increment-by="incrementAmount">{{ count }}</p>
-  <button @click="incrementCount">Increment Count</button>
+  <button class="button" @click="incrementCount">Increment Count</button>
   <h1>{{ incrementAmount }}</h1>
   <p>{{ optimizedIncrementAmount }}</p>
   <div>
