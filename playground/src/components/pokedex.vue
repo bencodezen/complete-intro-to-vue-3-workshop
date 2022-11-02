@@ -1,6 +1,13 @@
 <script setup>
 import BaseButton from "./base-button.vue";
-import { computed, defineProps, defineEmits, ref, reactive } from "vue";
+import {
+  computed,
+  defineProps,
+  defineEmits,
+  ref,
+  reactive,
+  onBeforeUnmount,
+} from "vue";
 
 const emits = defineEmits(["change-region"]);
 
@@ -28,6 +35,10 @@ const changeRegionName = () => {
   regionName.value = "Hoenn";
   emits("change-region");
 };
+
+onBeforeUnmount(() => {
+  console.log("Do this thing!");
+});
 </script>
 
 <template>
