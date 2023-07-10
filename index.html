@@ -10,10 +10,49 @@
 		<div id="app">
 			<p>{{message}}</p>
 
+			<h2>Counter</h2>
+			<p>{{count}}</p>
+			by
+			<p :data-increment-by="incrementValue">{{incrementValue}}</p>
+			<div>
+				<label for="incrementAmount">Increment by:</label>
+				<input type="number" v-model="incrementValue" />
+			</div>
+
+			<button @:click="incrementCount">Increment Count</button>
+
+			<hr />
+
+			<div>
+				<h3>Add Movie</h3>
+				<div>
+					<p>{{newMovie}}</p>
+					<label for="addMovie"></label>
+					<input v-model="newMovie" type="text" />
+				</div>
+				<button @:click="addNewMovie">Add</button>
+			</div>
+
 			<div>
 				<p v-if="movieArr.length <= 0 ">No Item in list</p>
+
 				<ul v-else>
-					<li v-for="movie in movieArr">{{movie.id}} {{movie.title}}</li>
+					<li v-for="movie in movieArr">
+						{{movie.id}} {{movie.title}}
+						<button @:click="addToFavorites(movie.title)">Favorite</button>
+					</li>
+				</ul>
+			</div>
+
+			<div>
+				<h3>Favorite Movies</h3>
+				<p v-if="favMovies.length <= 0 ">No Item in list</p>
+
+				<ul v-else>
+					<li v-for="movie in favMovies">
+						{{movie}}
+						<button @:click="removefromFav(movie)">Remove</button>
+					</li>
 				</ul>
 			</div>
 		</div>
@@ -24,6 +63,9 @@
 			Vue.createApp({
 				data() {
 					return {
+						count: 10,
+						incrementValue: 5,
+						newMovie: '',
 						message: 'Welcome to my Vue Application',
 						movieArr: [
 							{ id: ' 1', title: "It's okay to not be okay" },
@@ -33,7 +75,25 @@
 							{ id: ' 5', title: 'Reflection of you' },
 							{ id: ' 6', title: 'The Glory' },
 						],
+						favMovies: [],
 					};
+				},
+				methods: {
+					incrementCount() {
+						this.count += this.incrementValue;
+					},
+					addToFavorites(title) {
+						this.favMovies = [...this.favMovies, title];
+					},
+					removefromFav(title) {
+						this.favMovies = this.favMovies.filter((movie) => movie !== title);
+					},
+					addNewMovie() {
+						this.movieArr = [
+							...this.movieArr,
+							{ id: (this.movieArr.length += 2), title: this.newMovie },
+						];
+					},
 				},
 			}).mount('#app');
 		</script>
