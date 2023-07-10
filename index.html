@@ -1,10 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <body></body>
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Vue</title>
+	</head>
+	<body>
+		<div id="app">
+			<p>{{message}}</p>
+
+			<div>
+				<p v-if="movieArr.length <= 0 ">No Item in list</p>
+				<ul v-else>
+					<li v-for="movie in movieArr">{{movie.id}} {{movie.title}}</li>
+				</ul>
+			</div>
+		</div>
+
+		<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+		<script>
+			Vue.createApp({
+				data() {
+					return {
+						message: 'Welcome to my Vue Application',
+						movieArr: [
+							{ id: ' 1', title: "It's okay to not be okay" },
+							{ id: ' 2', title: 'hate to love you' },
+							{ id: ' 3', title: 'Business Proposal' },
+							{ id: ' 4', title: 'Celebrity' },
+							{ id: ' 5', title: 'Reflection of you' },
+							{ id: ' 6', title: 'The Glory' },
+						],
+					};
+				},
+			}).mount('#app');
+		</script>
+	</body>
 </html>

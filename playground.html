@@ -1,10 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Playground — Complete Intro to Vue 3</title>
-  </head>
-  <body></body>
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Playground — Complete Intro to Vue 3</title>
+	</head>
+	<body>
+		<div id="app">
+			<p v-if="message.length%2 === 0">Even : {{ message.toUpperCase() }}</p>
+			<p v-else>Odd: {{ message }}</p>
+
+			<ul>
+				<li v-for="number in listOfNumbers">{{ number }}</li>
+			</ul>
+		</div>
+
+		<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+		<script>
+			const { createApp } = Vue;
+
+			const app = createApp({
+				data() {
+					return {
+						message: 'Hello, it works!',
+						listOfNumbers: [1, 2, 3, 4, 5, 6],
+					};
+				},
+			});
+
+			app.mount('#app');
+		</script>
+	</body>
 </html>
