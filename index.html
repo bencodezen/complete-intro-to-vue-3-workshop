@@ -9,20 +9,6 @@
 	<body>
 		<div id="app">
 			<p>{{message}}</p>
-
-			<h2>Counter</h2>
-			<p>{{count}}</p>
-			by
-			<p :data-increment-by="incrementValue">{{incrementValue}}</p>
-			<div>
-				<label for="incrementAmount">Increment by:</label>
-				<input type="number" v-model="incrementValue" />
-			</div>
-
-			<button @:click="incrementCount">Increment Count</button>
-
-			<hr />
-
 			<div>
 				<h3>Add Movie</h3>
 				<div>
@@ -37,8 +23,13 @@
 				<p v-if="movieArr.length <= 0 ">No Item in list</p>
 
 				<ul v-else>
+					<div>
+						<p>Average Ratings: {{averageRating}}</p>
+						<p>{{averageRatingComment}}</p>
+					</div>
+
 					<li v-for="movie in movieArr">
-						{{movie.id}} {{movie.title}}
+						{{movie.rating}} {{movie.title}}
 						<button @:click="addToFavorites(movie.title)">Favorite</button>
 					</li>
 				</ul>
@@ -63,25 +54,39 @@
 			Vue.createApp({
 				data() {
 					return {
-						count: 10,
-						incrementValue: 5,
 						newMovie: '',
 						message: 'Welcome to my Vue Application',
 						movieArr: [
-							{ id: ' 1', title: "It's okay to not be okay" },
-							{ id: ' 2', title: 'hate to love you' },
-							{ id: ' 3', title: 'Business Proposal' },
-							{ id: ' 4', title: 'Celebrity' },
-							{ id: ' 5', title: 'Reflection of you' },
-							{ id: ' 6', title: 'The Glory' },
+							{ id: ' 1', title: "It's okay to not be okay", rating: 3 },
+							{ id: ' 2', title: 'hate to love you', rating: 5 },
+							{ id: ' 3', title: 'Business Proposal5', rating: 5 },
+							{ id: ' 4', title: 'Celebrity', rating: 2 },
+							{ id: ' 5', title: 'Reflection of you', rating: 5 },
+							{ id: ' 6', title: 'The Glory', rating: 4 },
 						],
 						favMovies: [],
 					};
 				},
-				methods: {
-					incrementCount() {
-						this.count += this.incrementValue;
+				computed: {
+					averageRating() {
+						const ratingsArr = [];
+						for (movie of this.movieArr) {
+							ratingsArr.push(movie.rating);
+						}
+
+						return (
+							ratingsArr.reduce((a, b) => a + b, 0) / ratingsArr.length
+						).toFixed(2);
 					},
+					averageRatingComment() {
+						if (this.averageRating < 3) {
+							return 'Total Rating too Low';
+						} else {
+							return 'Total Rating is high!';
+						}
+					},
+				},
+				methods: {
 					addToFavorites(title) {
 						this.favMovies = [...this.favMovies, title];
 					},
@@ -91,10 +96,17 @@
 					addNewMovie() {
 						this.movieArr = [
 							...this.movieArr,
-							{ id: (this.movieArr.length += 2), title: this.newMovie },
+							{
+								id: (this.movieArr.length += 2),
+								title: this.newMovie,
+								rating: Math.floor(Math.random() * 5) + 1,
+							},
 						];
+						this.newMovie = '';
 					},
 				},
+
+				watch: {},
 			}).mount('#app');
 		</script>
 	</body>
