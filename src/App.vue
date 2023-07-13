@@ -1,47 +1,97 @@
-<script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
+<script>
+export default {
+  data() {
+    return {
+      newMovie: '',
+      message: 'Welcome to my Vue Application',
+      movieArr: [
+        { id: ' 1', title: "It's okay to not be okay", rating: 3 },
+        { id: ' 2', title: 'hate to love you', rating: 5 },
+        { id: ' 3', title: 'Business Proposal5', rating: 5 },
+        { id: ' 4', title: 'Celebrity', rating: 2 },
+        { id: ' 5', title: 'Reflection of you', rating: 5 },
+        { id: ' 6', title: 'The Glory', rating: 4 }
+      ],
+      favMovies: []
+    }
+  },
+  computed: {
+    averageRating() {
+      const ratingsArr = []
+      for (const movie of this.movieArr) {
+        ratingsArr.push(movie.rating)
+      }
+
+      return (ratingsArr.reduce((a, b) => a + b, 0) / ratingsArr.length).toFixed(2)
+    },
+    averageRatingComment() {
+      if (this.averageRating < 3) {
+        return 'Total Rating too Low'
+      } else {
+        return 'Total Rating is high!'
+      }
+    }
+  },
+  methods: {
+    addToFavorites(title) {
+      this.favMovies = [...this.favMovies, title]
+    },
+    removefromFav(title) {
+      this.favMovies = this.favMovies.filter((movie) => movie !== title)
+    },
+    addNewMovie() {
+      this.movieArr = [
+        ...this.movieArr,
+        {
+          id: (this.movieArr.length += 2),
+          title: this.newMovie,
+          rating: Math.floor(Math.random() * 5) + 1
+        }
+      ]
+      this.newMovie = ''
+    }
+  },
+  watch: {}
+}
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
+  <p>{{ message }}</p>
+  <div>
+    <h3>Add Movie</h3>
+    <div>
+      <p>{{ newMovie }}</p>
+      <label for="addMovie"></label>
+      <input v-model="newMovie" type="text" />
     </div>
-  </header>
+    <button @:click="addNewMovie">Add</button>
+  </div>
 
-  <main>
-    <TheWelcome />
-  </main>
+  <div>
+    <p v-if="movieArr.length <= 0">No Item in list</p>
+
+    <ul v-else>
+      <div>
+        <p>Average Ratings: {{ averageRating }}</p>
+        <p>{{ averageRatingComment }}</p>
+      </div>
+
+      <li v-for="(movie, index) in movieArr" :key="`movie.title-${index}`">
+        {{ movie.rating }} {{ movie.title }}
+        <button @:click="addToFavorites(movie.title)">Favorite</button>
+      </li>
+    </ul>
+  </div>
+
+  <div>
+    <h3>Favorite Movies</h3>
+    <p v-if="favMovies.length <= 0">No Item in list</p>
+
+    <ul v-else>
+      <li v-for="(movie, index) in favMovies" :key="`movie-${index}`">
+        {{ movie }}
+        <button @:click="removefromFav(movie)">Remove</button>
+      </li>
+    </ul>
+  </div>
 </template>
-
-<style scoped>
-header {
-  line-height: 1.5;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-}
-</style>
