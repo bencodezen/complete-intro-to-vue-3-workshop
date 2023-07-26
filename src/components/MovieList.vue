@@ -1,9 +1,11 @@
 <script>
 import AverageRating from './AverageRating.vue'
+import BaseButton from './base/BaseButton.vue'
 
 export default {
   components: {
-    AverageRating
+    AverageRating,
+    BaseButton
   },
 
   props: {
@@ -25,7 +27,7 @@ export default {
       <ul>
         <li v-for="(movie, index) in movieArr" :key="`movie.title-${index}`">
           {{ movie.rating }} {{ movie.title }}
-          <button @:click="$emit('add-fav', movie.title)">Favorite</button>
+          <BaseButton @:click="$emit('add-fav', movie.title)">Favorite</BaseButton>
         </li>
       </ul>
     </div>

@@ -1,5 +1,9 @@
 <script>
+import BaseButton from './base/BaseButton.vue'
 export default {
+  components: {
+    BaseButton
+  },
   props: {
     favMovies: {
       type: Array,
@@ -17,7 +21,7 @@ export default {
     <ul v-else>
       <li v-for="(movie, index) in favMovies" :key="`movie-${index}`">
         {{ movie }}
-        <button @:click="$emit('remove-fav', movie)">Remove</button>
+        <BaseButton @:click="$emit('remove-fav', movie)">Remove</BaseButton>
       </li>
     </ul>
   </div>

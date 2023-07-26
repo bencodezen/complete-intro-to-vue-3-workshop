@@ -2,10 +2,12 @@
 import AddMovie from './components/AddMovie.vue'
 import MovieList from './components/MovieList.vue'
 import FavoriteMovieList from './components/FavoriteMovieList.vue'
+import BaseLayout from './components/base/BaseLayout.vue'
 
 export default {
   components: {
     AddMovie,
+    BaseLayout,
     MovieList,
     FavoriteMovieList
   },
@@ -50,8 +52,14 @@ export default {
 </script>
 
 <template>
-  <p>{{ message }}</p>
-  <AddMovie :modelValue="newMovie" @add-movie="addNewMovie" />
-  <MovieList :movieArr="movieArr" @add-fav="addToFavorites" />
-  <FavoriteMovieList :favMovies="favMovies" @remove-fav="removefromFav" />
+  <BaseLayout>
+    <template v-slot:aside>
+      <p>{{ message }}</p>
+    </template>
+    <template v-slot:main>
+      <AddMovie :modelValue="newMovie" @add-movie="addNewMovie" />
+      <MovieList :movieArr="movieArr" @add-fav="addToFavorites" />
+      <FavoriteMovieList :favMovies="favMovies" @remove-fav="removefromFav" />
+    </template>
+  </BaseLayout>
 </template>

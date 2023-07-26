@@ -1,5 +1,9 @@
 <script>
+import BaseButton from './base/BaseButton.vue'
 export default {
+  components: {
+    BaseButton
+  },
   props: ['modelValue'],
   emits: ['add-movie']
 }
@@ -17,6 +21,6 @@ export default {
         type="text"
       />
     </div>
-    <button @:click="$emit('add-movie')">Add</button>
+    <BaseButton @:click="$emit('add-movie')" />
   </div>
 </template>
