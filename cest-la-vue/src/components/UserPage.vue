@@ -1,35 +1,31 @@
-<script>
+<script setup>
 import { reactive } from "vue";
 
-export default {
-  setup: async () => {
-    const state = reactive({
-      users: [],
-    });
-
-    async function fecthUsers() {
-      const response = await fetch(
-        "https://jsonplaceholder.typicode.com/users"
-      ).then((response) => response.json());
-
-      return response;
-    }
-
-    state.users = await fecthUsers();
-
-    return {
-      state,
-    };
+defineProps({
+  title: {
+    type: String,
+    default: "Users",
   },
-  data: () => ({}),
-  methods: {},
-  created() {},
-};
+});
+
+const state = reactive({
+  users: [],
+});
+
+async function fecthUsers() {
+  const response = await fetch(
+    "https://jsonplaceholder.typicode.com/users"
+  ).then((response) => response.json());
+
+  return response;
+}
+
+state.users = await fecthUsers();
 </script>
 
 <template>
   <main>
-    <h1>Users</h1>
+    <h1>{{ title }}</h1>
     <div>
       <div class="wrapper">
         <div v-for="user in state.users" :key="`user-${user.id}`" class="card">
