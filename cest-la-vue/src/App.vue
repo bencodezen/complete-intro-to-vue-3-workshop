@@ -2,6 +2,9 @@
 import HomePage from "./components/HomePage.vue";
 import LoginPage from "./components/LoginPage.vue";
 import UserPage from "./components/UserPage.vue";
+import { ref } from "vue";
+
+// const colorPreference = ref("black");
 
 export default {
   components: {
@@ -11,6 +14,7 @@ export default {
   },
   data: () => ({
     currentPage: "Home",
+    colorPreference: ref("#ffffff"),
   }),
   computed: {
     renderPage() {
@@ -33,21 +37,27 @@ export default {
 </script>
 
 <template>
-  <header class="header">
-    <span class="logo">
-      <img src="@/assets/vue-heart.png" width="30" />C'est La Vue
-    </span>
-    <nav class="nav">
-      <a href="#" @click.prevent="showHomePage">Home</a>
-      <a href="#" @click.prevent="showUserPage">Users</a>
-      <a href="#" @click.prevent="showLoginPage">Login</a>
-    </nav>
-  </header>
+  <div class="bg-wrapper">
+    <header class="header">
+      <span class="logo">
+        <img src="@/assets/vue-heart.png" width="30" />C'est La Vue
+      </span>
+      <div>
+        <label>Change background color:</label>
+        <input type="color" v-model="colorPreference" />
+      </div>
+      <nav class="nav">
+        <a href="#" @click.prevent="showHomePage">Home</a>
+        <a href="#" @click.prevent="showUserPage">Users</a>
+        <a href="#" @click.prevent="showLoginPage">Login</a>
+      </nav>
+    </header>
 
-  <Suspense>
-    <component :is="renderPage" />
-    <template #fallback> Fetching Data </template>
-  </Suspense>
+    <Suspense>
+      <component :is="renderPage" />
+      <template #fallback> Fetching Data </template>
+    </Suspense>
+  </div>
 </template>
 
 <style>
@@ -58,11 +68,20 @@ export default {
   padding: 0;
 }
 
+.bg-wrapper {
+  background-color: v-bind(colorPreference);
+  min-height: 100vh;
+}
+
 .header {
   display: flex;
   justify-content: space-between;
   padding: 0.5rem 1rem;
   border-bottom: 1px solid #ccc;
+}
+
+.header label {
+  margin-right: 8px;
 }
 
 span.logo {
@@ -88,5 +107,35 @@ span.logo img {
 
 .nav a:last-child {
   padding-right: 0;
+}
+
+main {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  max-width: 320px;
+  margin: 0 auto;
+}
+
+main h1 {
+  margin-top: 10vh;
+  margin-bottom: 20px;
+}
+
+label {
+  margin-bottom: 5px;
+}
+
+input[type="email"] {
+  padding: 0.5rem;
+  margin-bottom: 30px;
+}
+
+button {
+  border: 1px solid green;
+  padding: 10px;
+  color: green;
+  background-color: rgb(213, 255, 213);
+  cursor: pointer;
 }
 </style>
