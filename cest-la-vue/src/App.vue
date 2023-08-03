@@ -2,9 +2,6 @@
 import HomePage from "./components/HomePage.vue";
 import LoginPage from "./components/LoginPage.vue";
 import UserPage from "./components/UserPage.vue";
-import { ref } from "vue";
-
-// const colorPreference = ref("black");
 
 export default {
   components: {
@@ -14,7 +11,8 @@ export default {
   },
   data: () => ({
     currentPage: "Home",
-    colorPreference: ref("#ffffff"),
+    colorPreference: "#ffffff",
+    textPreference: "#000000",
   }),
   computed: {
     renderPage() {
@@ -46,6 +44,10 @@ export default {
         <label>Change background color:</label>
         <input type="color" v-model="colorPreference" />
       </div>
+      <div>
+        <label>Change text color:</label>
+        <input type="color" v-model="textPreference" />
+      </div>
       <nav class="nav">
         <a href="#" @click.prevent="showHomePage">Home</a>
         <a href="#" @click.prevent="showUserPage">Users</a>
@@ -70,6 +72,7 @@ export default {
 
 .bg-wrapper {
   background-color: v-bind(colorPreference);
+  color: v-bind(textPreference);
   min-height: 100vh;
 }
 
