@@ -27,8 +27,12 @@ state.users = await fecthUsers();
   <main>
     <h1>{{ title }}</h1>
     <div>
-      <div class="wrapper">
-        <div v-for="user in state.users" :key="`user-${user.id}`" class="card">
+      <div :class="$style.wrapper">
+        <div
+          v-for="user in state.users"
+          :key="`user-${user.id}`"
+          :class="$style.card"
+        >
           <p>{{ user.name }}</p>
           <p>{{ user.email }}</p>
           <p>{{ user.website }}</p>
@@ -39,20 +43,7 @@ state.users = await fecthUsers();
   </main>
 </template>
 
-<style>
-main {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  max-width: 320px;
-  margin: 0 auto;
-}
-
-main h1 {
-  margin-top: 10vh;
-  margin-bottom: 20px;
-}
-
+<style module>
 .wrapper {
   display: grid;
   grid-gap: 10px;
@@ -61,5 +52,6 @@ main h1 {
 .card {
   border: 1px solid gray;
   padding: 10px;
+  background-color: #fff;
 }
 </style>
