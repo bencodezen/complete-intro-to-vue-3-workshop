@@ -1,15 +1,11 @@
 <script setup>
-import { reactive } from "vue";
+import { userList } from "../composables/useUserStore";
 
 defineProps({
   title: {
     type: String,
     default: "Users",
   },
-});
-
-const state = reactive({
-  users: [],
 });
 
 async function fecthUsers() {
@@ -20,7 +16,7 @@ async function fecthUsers() {
   return response;
 }
 
-state.users = await fecthUsers();
+userList.value = await fecthUsers();
 </script>
 
 <template>
@@ -29,7 +25,7 @@ state.users = await fecthUsers();
     <div>
       <div :class="$style.wrapper">
         <div
-          v-for="user in state.users"
+          v-for="user in userList"
           :key="`user-${user.id}`"
           :class="$style.card"
         >
