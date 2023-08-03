@@ -1,5 +1,6 @@
 <script setup>
-import { userList } from "@/composables/useUserStore";
+// import { userList } from "@/composables/useUserStore";
+import { useUserStore } from "@/stores/UserStore";
 
 defineProps({
   title: {
@@ -8,15 +9,9 @@ defineProps({
   },
 });
 
-async function fecthUsers() {
-  const response = await fetch(
-    "https://jsonplaceholder.typicode.com/users"
-  ).then((response) => response.json());
+const userStore = useUserStore();
 
-  return response;
-}
-
-userList.value = await fecthUsers();
+userStore.fecthUsers();
 </script>
 
 <template>
@@ -25,7 +20,7 @@ userList.value = await fecthUsers();
     <div>
       <div :class="$style.wrapper">
         <div
-          v-for="user in userList"
+          v-for="user in userStore.users"
           :key="`user-${user.id}`"
           :class="$style.card"
         >
