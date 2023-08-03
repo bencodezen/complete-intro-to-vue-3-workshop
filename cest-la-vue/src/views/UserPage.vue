@@ -29,10 +29,12 @@ userList.value = await fecthUsers();
           :key="`user-${user.id}`"
           :class="$style.card"
         >
-          <p>{{ user.name }}</p>
-          <p>{{ user.email }}</p>
-          <p>{{ user.website }}</p>
-          <p>{{ user.phone }}</p>
+          <router-link :to="`/users/${user.name}`">
+            <p>{{ user.name }}</p>
+            <p>{{ user.email }}</p>
+            <p>{{ user.website }}</p>
+            <p>{{ user.phone }}</p>
+          </router-link>
         </div>
       </div>
     </div>
