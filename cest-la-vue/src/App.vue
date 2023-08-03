@@ -1,36 +1,9 @@
 <script>
-import HomePage from "./components/HomePage.vue";
-import LoginPage from "./components/LoginPage.vue";
-import UserPage from "./components/UserPage.vue";
-
 export default {
-  components: {
-    HomePage,
-    LoginPage,
-    UserPage,
-  },
   data: () => ({
-    currentPage: "Home",
     colorPreference: "#ffffff",
     textPreference: "#000000",
   }),
-  computed: {
-    renderPage() {
-      return this.currentPage + "Page";
-    },
-  },
-  methods: {
-    showHomePage() {
-      this.currentPage = "Home";
-    },
-    showLoginPage() {
-      this.currentPage = "Login";
-    },
-    showUserPage() {
-      this.currentPage = "User";
-    },
-  },
-  created() {},
 };
 </script>
 
@@ -49,14 +22,14 @@ export default {
         <input type="color" v-model="textPreference" />
       </div>
       <nav class="nav">
-        <a href="#" @click.prevent="showHomePage">Home</a>
-        <a href="#" @click.prevent="showUserPage">Users</a>
-        <a href="#" @click.prevent="showLoginPage">Login</a>
+        <router-link to="/">Home</router-link>
+        <router-link to="/users">Users</router-link>
+        <router-link to="/login">Login</router-link>
       </nav>
     </header>
 
     <Suspense>
-      <component :is="renderPage" />
+      <router-view></router-view>
       <template #fallback> Fetching Data </template>
     </Suspense>
   </div>
