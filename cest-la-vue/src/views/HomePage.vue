@@ -1,5 +1,5 @@
 <script setup>
-import { userList } from "../composables/useUserStore";
+import { userList } from "@/composables/useUserStore";
 import { computed } from "vue";
 
 const shortUserList = computed(() => {
