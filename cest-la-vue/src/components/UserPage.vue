@@ -1,5 +1,6 @@
 <script setup>
 import { reactive } from "vue";
+import { greetingsCounter } from "../composables/greetingsCounterStore";
 
 defineProps({
   pageSubTitle: {
@@ -30,6 +31,7 @@ const greetUsers = (userName) => {
   <main>
     <h1>User</h1>
     <h3>{{ pageSubTitle }}</h3>
+    <h4>People on this page have been greeted {{ greetingsCounter }} times</h4>
     <div
       class="userCard"
       v-for="(user, index) in state.userList"

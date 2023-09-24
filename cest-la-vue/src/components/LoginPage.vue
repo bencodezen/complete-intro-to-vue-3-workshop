@@ -1,4 +1,9 @@
-<script></script>
+<script setup>
+import {
+  greetingsCounter,
+  countUpGreeting,
+} from "../composables/greetingsCounterStore";
+</script>
 
 <template>
   <main>
@@ -6,6 +11,10 @@
     <label for="email">Email</label>
     <input type="email" />
     <button>Continue with email</button>
+    <hr />
+    <h2>Say Hello!</h2>
+    <p>You greeted {{ greetingsCounter }} times!</p>
+    <button @click="countUpGreeting">Hello!</button>
   </main>
 </template>
 
