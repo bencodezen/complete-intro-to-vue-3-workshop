@@ -1,36 +1,43 @@
-<script>
+<script setup>
 import { reactive } from "vue";
-export default {
-  async setup() {
-    const state = reactive({ userList: [] });
 
-    async function fetchUserData() {
-      const response = await fetch(
-        "https://jsonplaceholder.typicode.com/users"
-      ).then((res) => res.json());
-      return response;
-    }
-
-    state.userList = await fetchUserData();
-
-    return { state, fetchUserData };
+defineProps({
+  pageSubTitle: {
+    type: String,
+    default: "Welcome to the User Page!",
   },
-  created() {
-    console.log(this.state.userList);
-  },
+});
+
+const emit = defineEmits(["greetUser"]);
+
+const state = reactive({ userList: [] });
+
+async function fetchUserData() {
+  const response = await fetch(
+    "https://jsonplaceholder.typicode.com/users"
+  ).then((res) => res.json());
+  return response;
+}
+
+state.userList = await fetchUserData();
+
+const greetUsers = (userName) => {
+  emit("greetUser", userName);
 };
 </script>
 
 <template>
   <main>
     <h1>User</h1>
+    <h3>{{ pageSubTitle }}</h3>
     <div
       class="userCard"
       v-for="(user, index) in state.userList"
       :key="user + index"
     >
       <h2>{{ user.username }}</h2>
-      <div class="userContent">
+
+      <div class="userContent" @click="greetUsers(user.name)">
         <div class="userHeader">
           <div>
             <p>{{ user.name }}</p>

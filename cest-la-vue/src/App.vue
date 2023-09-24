@@ -27,6 +27,9 @@ export default {
     showUserPage() {
       this.currentPage = "User";
     },
+    greetUser(userName) {
+      console.log("Hello ", userName);
+    },
   },
 };
 </script>
@@ -43,7 +46,7 @@ export default {
     </nav>
   </header>
   <Suspense>
-    <component :is="renderPage" :key="renderPage" />
+    <component :is="renderPage" :key="renderPage" @greetUser="greetUser" />
 
     <template v-slot:fallback> Data is loading... </template>
   </Suspense>
