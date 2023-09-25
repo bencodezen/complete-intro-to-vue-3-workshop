@@ -21,6 +21,16 @@ onMounted(async () => {
     <h2>{{ userInfo.username }}</h2>
     <p>{{ userInfo.email }}</p>
     <p>{{ userInfo.phone }}</p>
+    <div class="tabs">
+      <br />
+      <router-link to="/user/:id/likes">My likes</router-link>
+      <br />
+      <router-link to="/user/:id/posts">My Posts</router-link>
+    </div>
+    <div class="innerRoute">
+      <router-view />
+    </div>
+    <br />
   </div>
 </template>
 
@@ -32,5 +42,18 @@ onMounted(async () => {
   justify-content: center;
   background-color: antiquewhite;
   padding: 10%;
+}
+
+.tabs {
+  display: flex;
+  width: 50%;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+.innerRoute {
+  border: 5px solid brown;
+  padding: 50px;
+  border-radius: 25px;
 }
 </style>

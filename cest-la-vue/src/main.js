@@ -1,6 +1,8 @@
 import { createApp } from "vue";
 import { createRouter, createWebHistory } from "vue-router";
 import HomePage from "@/views/HomePage.vue";
+import UserLikes from "@/views/UserLikes.vue";
+import UserPosts from "@/views/UserPosts.vue";
 import App from "@/App.vue";
 
 const app = createApp(App);
@@ -24,6 +26,20 @@ const router = createRouter({
       name: "UserProfile",
       component: () => import("@/views/ProfilePage.vue"),
       props: true, // Will allow you to pass `id` as prop
+      children: [
+        {
+          // UserProfile will be rendered inside User's <router-view>
+          // when /user/:id/profile is matched
+          path: "likes",
+          component: UserLikes,
+        },
+        {
+          // UserPosts will be rendered inside User's <router-view>
+          // when /user/:id/posts is matched
+          path: "posts",
+          component: UserPosts,
+        },
+      ],
     },
     {
       path: "/dashboard",
