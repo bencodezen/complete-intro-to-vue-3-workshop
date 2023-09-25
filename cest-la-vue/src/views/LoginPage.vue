@@ -1,8 +1,18 @@
 <script setup>
+import { watch } from "vue";
+import { useRouter } from "vue-router";
 import {
   greetingsCounter,
   countUpGreeting,
 } from "../composables/greetingsCounterStore";
+
+const router = useRouter();
+
+watch(greetingsCounter, (value) => {
+  if (value > 10) {
+    router.push("/dashboard");
+  }
+});
 </script>
 
 <template>

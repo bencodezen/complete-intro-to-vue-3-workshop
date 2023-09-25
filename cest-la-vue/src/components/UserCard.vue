@@ -1,14 +1,18 @@
 <script setup>
+import { useRouter } from "vue-router";
+const router = useRouter();
+
 defineProps({
   userList: {
     type: Array,
   },
 });
 
-const emit = defineEmits(["greetUser"]);
-
-const greetUsers = (userName) => {
-  emit("greetUser", userName);
+const navigateToProfile = (user) => {
+  router.push({
+    name: "UserProfile",
+    params: { id: user.id, userInfo: user },
+  });
 };
 </script>
 
@@ -16,15 +20,23 @@ const greetUsers = (userName) => {
   <div class="userCard" v-for="(user, index) in userList" :key="user + index">
     <h2>{{ user.username }}</h2>
 
-    <div class="userContent" @click="greetUsers(user.name)">
+    <div class="userContent" @click="navigateToProfile(user)">
       <div class="userHeader">
         <div>
           <p>{{ user.name }}</p>
           <p>{{ user.email }}</p>
+          <router-link :to="{ name: 'UserProfile', params: { id: user.id } }"
+            >Go to {{ user.name }}'s Profile</router-link
+          >
+          <img
+            class="userImage"
+            src="../assets/vue-heart.png"
+            alt="UserImage"
+          />
+          <br />
         </div>
-        <img class="userImage" src="../assets/vue-heart.png" alt="UserImage" />
-        <br />
       </div>
+
       <h3>Adress</h3>
       <p>{{ user.address.street }}</p>
       <p>{{ user.address.suite }}</p>

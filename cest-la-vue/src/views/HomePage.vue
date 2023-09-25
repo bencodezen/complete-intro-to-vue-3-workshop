@@ -1,5 +1,3 @@
-<script></script>
-
 <template>
   <main>
     <h1>Welcome to <br />C'est La Vue</h1>
