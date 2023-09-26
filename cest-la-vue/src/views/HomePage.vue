@@ -1,3 +1,16 @@
+<script setup>
+import { useCounterStore } from "@/stores/CountingStore";
+import { storeToRefs } from "pinia";
+
+const store = useCounterStore();
+// `name` and `doubleCount` are reactive refs
+// This will also extract refs for properties added by plugins
+// but skip any action or non reactive (non ref/reactive) property
+const { name, doubleCount } = storeToRefs(store);
+// the increment action can just be destructured
+const { increment } = store;
+</script>
+
 <template>
   <main>
     <h1>Welcome to <br />C'est La Vue</h1>
@@ -5,6 +18,9 @@
       This is a place to manage various things: todos, users, posts, etc.
       Whatever your mind desires!
     </p>
+    <h2>We have {{ name }}</h2>
+    <button @click="increment">Increment</button>
+    <p>{{ doubleCount }}</p>
   </main>
 </template>
 
