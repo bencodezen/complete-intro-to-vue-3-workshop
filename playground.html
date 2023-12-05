@@ -6,5 +6,50 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Playground — Complete Intro to Vue 3</title>
   </head>
-  <body></body>
+  <body>
+    <h1>Hello Frontend Masters</h1>
+   <div id="app">
+    <hr/>
+    <h1>Counter</h1>
+    <p>{{count}}</p>
+    <button @click="incrementCount">Increment Count</button>
+    <div>
+      <label for="incrementAmount">Increment Count</label>
+      <input type="number" 
+        v-model.number="incrementAmount"/>
+    </div>
+  
+    <hr/>
+    <p v-if="message.length % 2 === 0">Even: {{message.toUpperCase()}}</p>
+    <p v-else>Odd: {{message}}</p>
+    <ul>
+      <li v-for="number in listofNumbers">{{number}}</li>
+    </ul>
+    
+   </div>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script>
+      const {createApp} = Vue;
+
+      const app = createApp({
+        data() {
+          return {
+           count:10,
+           incrementAmount: 8,
+            message: 'Hello it works',
+            listofNumbers: [1,2,3,4,5]
+          }
+        },
+        methods:{
+          incrementCount(){
+            this.count+=this.incrementAmount
+          }
+        
+        }
+      })
+
+      app.mount('#app')
+    </script>
+  </body>
 </html>
