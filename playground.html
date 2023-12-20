@@ -15,8 +15,7 @@
     <button @click="incrementCount">Increment Count</button>
     <div>
       <label for="incrementAmount">Increment Count</label>
-      <input type="number" 
-        v-model.number="incrementAmount"/>
+      <input type="number" v-model="incrementAmount"/>
     </div>
   
     <hr/>
@@ -43,10 +42,10 @@
         },
         methods:{
           incrementCount(){
-            this.count+=this.incrementAmount
+            this.count += this.incrementAmount
           }
-        
         }
+        
       })
 
       app.mount('#app')
