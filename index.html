@@ -4,7 +4,128 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Movie Info</title>
   </head>
-  <body></body>
+  <body>
+    
+    <div id="app">
+      <h1>{{message}}</h1>
+      <p>{{data.title}}</p>
+      <p>{{data.length}} </p>
+      <h2>{{displayTitle}}</h2>
+      <label for="counter">CounterButton <span>{{count}}</span></label>
+      <button id="counter" @:click="increment" :style="{padding: 5, marginLeft:10 +'px'}">Increment</button>
+      <button id="counter" @:click="decrement" :style="{padding: 5, marginLeft:10 +'px'}">Decrement</button>
+      <ul>
+        <li v-for="(actor, index) in data.actors" :key="actor.id">
+          <label for="favoriteActor"> {{actor.name}}</label>
+          <p >Movie appearence<span :style="{paddingLeft:'10px'}">{{appearence[index]}}%</span> 
+        </p>
+          <input id="favoriteActor" v-model="actor.favorite" type="checkbox">
+        </li>
+      </ul>
+      <ul v-show="generateFavoriteActors().length > 0">
+        <h3>Favorite actors</h3>
+        <template v-for="actor in data.actors" :key="actor.id">
+          <li  v-if="actor.favorite" >{{actor.name}}</li>
+        </template>
+      </ul>
+
+      <form @submit.prevent="addNewActor">
+        <label for="addActor">Add a new Actor</label>
+        <input id="addActor" type="text" v-model="newActor">
+        <button type="submit">AddNewActor</button>
+      </form>
+    </div>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script>
+      const {createApp} = Vue;
+      const app = createApp({
+        data(){
+          return{
+            message:"This is my movie",
+            newActor:"",
+            counterTitle:"Counter Standard",
+            count:0,
+            data:{
+              title:"Matrix",
+              length:"3h",
+              actors:[
+                {
+                id:1,
+                name:"Keanu Reeves",
+                favorite:false, 
+                movies:2,
+              },
+              {
+
+                id:2,
+                name:"Carrie-Anne Moss",
+                favorite:false,
+                movies:5,
+              
+              },
+                {
+                id:3,
+                name:"Laurence Fishburne",
+                favorite:false, 
+                movies:1,
+              
+              },
+                {
+                id:4,
+                name:"Hugo Weaving",
+                favorite:false, 
+                movies:9,
+              }
+              ],
+            }
+          }
+        },
+        methods:{
+          generateFavoriteActors(){
+            return this.data.actors.filter(item=>item.favorite === true)
+          },
+          addNewActor(){
+            const newActorObj={
+              id:this.data.actors.length+1,
+              name:this.newActor,
+              favorite:false,
+              movies:0
+            }
+           this.data.actors.push(newActorObj);
+           this.newActor="";
+          },
+          increment(){
+            this.count++;
+          },
+          decrement(){
+            this.count--;
+          }
+        },
+        computed:{
+          displayTitle(){
+            if(this.count>20){
+              return "Counter Max"
+            }
+            else if (this.count>=0 && this.count<=20){
+             return "Counter Standard"
+            }
+          },
+          appearence(){
+            const totalMoviesAppearence =  this.data.actors.reduce((acc, actor)=>acc+actor.movies, 0);
+           return this.data.actors.map(actor=>Number(actor.movies/totalMoviesAppearence * 100).toFixed())
+            // return currentActorMovies/totalMoviesAppearence * 100;
+            // console.log(totalAppearence);
+          }
+        },
+        watch:{
+          // count(newValue){
+          //   this.displayTitle(newValue);
+          // }
+        }
+      })
+      app.mount('#app')
+    </script>
+  </body>
 </html>
