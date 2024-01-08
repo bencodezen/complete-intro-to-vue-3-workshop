@@ -11,6 +11,16 @@
 <body>
   <h1>Hello Frontend Masters!</h1>
   <div id="app">
+    <h1>Counter</h1>
+    <p>{{count}}</p>
+    <button v-on:click="incrementCount">Increment</button>
+    <div>
+      <label for="incrementAmount">Increment by: </label>
+      <input type="number"
+             v-model="incrementAmount"/>
+    </div>
+
+    <hr/>
     <p v-if="message.length % 2 === 0">Even: {{ message.toUpperCase() }}</p>
     <p v-else>Odd: {{ message }}</p>
     <ul v-for="item in listOfNumbers">
@@ -30,6 +40,8 @@
     const app = createApp({
       data() {
         return {
+          count: 10,
+          incrementAmount: 8,
           message: 'Hello it works',
           listOfNumbers: [
             {
@@ -58,6 +70,11 @@
               list: [1, 2, 3]
             }
           ]
+        }
+      },
+      methods: {
+        incrementCount() {
+          this.count += this.incrementAmount
         }
       }
     })
