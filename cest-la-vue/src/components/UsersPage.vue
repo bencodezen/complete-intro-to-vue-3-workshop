@@ -1,39 +1,31 @@
-<script>
+<script setup>
 import UserCard from "@/components/UserCard.vue";
-import {reactive} from "vue";
+import {userList} from "../composables/useUserStore.js";
 // https://jsonplaceholder.typicode.com/users
 
-  export default {
-    components: {
-      UserCard,
-    },
-    async setup() {
-      const state = reactive({
-        userList: []
-      })
-
-      async function fetchUsers() {
-        const response = fetch('https://jsonplaceholder.typicode.com/users')
-            .then((response) => response.json());
-
-        return response;
-      }
-
-      state.userList = await fetchUsers()
-
-      return {
-        state,
-        fetchUsers
-      }
-    }
+defineProps({
+  title: {
+    type: String,
+    default: 'Users'
   }
+});
+
+defineEmits(["update-user-list"]);
+
+async function fetchUsers() {
+  const response = fetch('https://jsonplaceholder.typicode.com/users')
+      .then((response) => response.json());
+  return response;
+}
+
+userList.value = await fetchUsers();
 </script>
 
 <template>
   <main>
-    <h1>Users</h1>
+    <h1>{{ title }}</h1>
     <ul>
-      <UserCard v-for="user in state.userList"
+      <UserCard v-for="user in userList"
                 :user="user"
                 :key="`user-${user.id}`"/>
     </ul>

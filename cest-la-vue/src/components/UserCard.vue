@@ -15,7 +15,7 @@
     </li>
 </template>
 
-<style >
+<style scoped>
   .user-card {
     border: 2px solid #222;
     padding: 10px;
