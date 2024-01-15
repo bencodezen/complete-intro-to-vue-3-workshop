@@ -6,5 +6,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
   </head>
-  <body></body>
+  <body>
+    <div id="app">
+      <p>{{ message}}</p>
+      <ul>
+        <li v-for="character in listOfCharacters">{{character}}</li>
+      </ul>
+    </div>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script>
+      const { createApp } = Vue
+
+      const app = createApp({
+        data() {
+          return {
+            message:"Super Mario Bros",
+            listOfCharacters: ["Mario", "Luigi", "Bowser", "Toad"]
+
+          }
+        }
+      })
+      app.mount('#app')
+    </script>
+
+  </body>
 </html>
