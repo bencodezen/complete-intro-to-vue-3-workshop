@@ -1,47 +1,20 @@
-<script>
-import HomePage from './components/HomePage.vue'
-import LoginPage from './components/LoginPage.vue'
-import UsersPage from "@/components/UsersPage.vue";
-
-export default {
-  components: {
-    HomePage,
-    LoginPage,
-    UsersPage
-  },
-  data: () => ({
-    currentPage: 'Home'
-  }),
-  computed: {
-    renderPage() {
-      return this.currentPage + 'Page';
-    }
-  },
-  methods: {
-    showHomePage() {
-      this.currentPage = 'Home';
-    },
-    showLoginPage() {
-      this.currentPage = 'Login';
-    },
-    showUsersPage() {
-      this.currentPage = 'Users'
-    }
-  }
-}
-</script>
+<script></script>
 
 <template>
   <header class="header">
     <span class="logo"> <img src="@/assets/vue-heart.png" width="30" />C'est La Vue </span>
     <nav class="nav">
-      <a href="#" @click.prevent="showHomePage">Home</a>
-      <a href="#" @click.prevent="showLoginPage">Login</a>
-      <a href="#" @click.prevent="showUsersPage">Users</a>
+      <router-link to="/">Home</router-link>
+      <router-link to="/login">Login</router-link>
+      <router-link to="/users">Users</router-link>
+<!--      <a href="#" @click.prevent="showHomePage">Home</a>-->
+<!--      <a href="#" @click.prevent="showLoginPage">Login</a>-->
+<!--      <a href="#" @click.prevent="showUsersPage">Users</a>-->
     </nav>
   </header>
   <Suspense>
-    <component :is="renderPage" :key="renderPage"/>
+<!--    <component :is="renderPage" :key="renderPage"/>-->
+    <router-view />
     <template v-slot:fallback> Data is loading... </template>
   </Suspense>
 <!--  <HomePage v-if="currentPage === 'Home'" />-->

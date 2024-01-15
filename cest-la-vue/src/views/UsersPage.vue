@@ -1,6 +1,6 @@
 <script setup>
 import UserCard from "@/components/UserCard.vue";
-import {userList} from "../composables/useUserStore.js";
+import {userList} from "@/composables/useUserStore.js";
 // https://jsonplaceholder.typicode.com/users
 
 defineProps({
