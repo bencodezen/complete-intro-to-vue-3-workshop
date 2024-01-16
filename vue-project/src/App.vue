@@ -1,9 +1,21 @@
 <script setup>
-import BaseCounter from "@/components/base-counter.vue";
-import UserCard from "@/components/user-card.vue";
-import {ref} from "vue";
+import BaseCounter from '@/components/base-counter.vue'
+import UserCard from '@/components/user-card.vue'
+import { ref, watch } from 'vue'
+import { useCount } from './composables/countStore'
+import { useRouter } from 'vue-router'
 
-const colorPreference = ref("white")
+const colorPreference = ref('white')
+
+const countStore = useCount()
+const router = useRouter()
+
+watch(countStore.globalCount, (val) => {
+  console.log(val)
+  if (val > 1200) {
+    router.push('/pokedex')
+  }
+})
 </script>
 
 <template>
@@ -12,11 +24,11 @@ const colorPreference = ref("white")
       <router-link to="/">Home</router-link>
       <router-link to="/pokedex">Pokedex</router-link>
     </nav>
-    <router-view/>
+    <router-view />
     <h2>{{ colorPreference }}</h2>
-    <input type="color" v-model="colorPreference">
-    <BaseCounter/>
-    <UserCard :user="{name: 'Ced', food: 'Tacos'}"/>
+    <input type="color" v-model="colorPreference" />
+    <BaseCounter />
+    <UserCard :user="{ name: 'Ced', food: 'Tacos' }" />
   </div>
 </template>
 

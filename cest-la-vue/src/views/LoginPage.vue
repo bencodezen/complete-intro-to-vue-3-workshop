@@ -1,11 +1,26 @@
-<script></script>
+<script setup>
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+
+const emailInput = ref('')
+const router = useRouter()
+
+const login = () => {
+  if (emailInput.value.includes('@') && emailInput.value.length > 3) {
+    console.log('Valid User')
+    router.push('/users')
+  } else {
+    console.log('Invalid User')
+  }
+}
+</script>
 
 <template>
   <main>
     <h1>Login</h1>
     <label for="email">Email</label>
-    <input type="email" />
-    <button>Continue with email</button>
+    <input type="email" v-model="emailInput" />
+    <button @click="login">Continue with email</button>
   </main>
 </template>
 

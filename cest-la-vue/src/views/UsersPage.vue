@@ -1,6 +1,6 @@
 <script setup>
-import UserCard from "@/components/UserCard.vue";
-import {userList} from "@/composables/useUserStore.js";
+import UserCard from '@/components/UserCard.vue'
+import { userList } from '@/composables/useUserStore.js'
 // https://jsonplaceholder.typicode.com/users
 
 defineProps({
@@ -8,26 +8,25 @@ defineProps({
     type: String,
     default: 'Users'
   }
-});
+})
 
-defineEmits(["update-user-list"]);
+defineEmits(['update-user-list'])
 
 async function fetchUsers() {
-  const response = fetch('https://jsonplaceholder.typicode.com/users')
-      .then((response) => response.json());
-  return response;
+  const response = fetch('https://jsonplaceholder.typicode.com/users').then((response) =>
+    response.json()
+  )
+  return response
 }
 
-userList.value = await fetchUsers();
+userList.value = await fetchUsers()
 </script>
 
 <template>
   <main>
     <h1>{{ title }}</h1>
     <ul>
-      <UserCard v-for="user in userList"
-                :user="user"
-                :key="`user-${user.id}`"/>
+      <UserCard v-for="user in userList" :user="user" :key="`user-${user.id}`" />
     </ul>
   </main>
 </template>
@@ -45,5 +44,4 @@ main h1 {
   margin-top: 10vh;
   margin-bottom: 20px;
 }
-
 </style>
