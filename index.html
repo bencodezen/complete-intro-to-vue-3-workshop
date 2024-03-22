@@ -1,46 +1,106 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Avatar: The Last Airbender</title>
-  </head>
-  <body>
-    <div id="app">
-      <p v-if="characterList.length === 0">There are no characters</p>
-      <ul v-else-if="characterList.length % 2 === 0">
-        <li v-for="character in characterList">{{ character.name }}</li>
-      </ul>
-      <p>
-        <span v-for="(character, index) in characterList"
-          >{{ character.name }}{{ index === characterList.length - 1 ? '' : ', '
-          }}
-        </span>
-      </p>
-      <p v-else>There are odd characters!</p>
-    </div>
 
-    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-    <script>
-      Vue.createApp({
-        data: () => ({
-          characterList: [
-            {
-              name: 'Aang'
-            },
-            {
-              name: 'Zuko'
-            },
-            {
-              name: 'Toph'
-            },
-            {
-              name: 'Katara'
-            }
-          ]
-        })
-      }).mount('#app')
-    </script>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Avatar: The Last Airbender</title>
+</head>
+
+<body>
+  <div id="app">
+
+    <h1>{{optimizedTitle}}</h1>
+    <p v-if="characterList.length === 0">There are no characters</p>
+    <ul v-else>
+      <li v-for="(character, index) in characterList">
+        {{ character.name }}
+        <button @click="addToFavorite(index)">favorite</button>
+      </li>
+
+
+      <h1>
+
+      </h1>
+
+      <input type="text" v-bind:value="name" v-on:input="changeName">
+      <button @click="addToList">add to char list</button>
+
+
+      <hr>
+
+      <p>{{name}}</p>
+      <input type="text" v-model="name" @keyup.enter="addToList">
+      <hr>
+    </ul>
+
+    <ul>
+      <li>Fav List</li>
+      <li v-for="char in favCharList">
+        {{char}}
+      </li>
+    </ul>
+  </div>
+
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script>
+    Vue.createApp({
+      data: () => ({
+        favCharList: [],
+        characterList: [
+          {
+            name: 'Aang'
+          },
+          {
+            name: 'Zuko'
+          },
+          {
+            name: 'Toph'
+          },
+          {
+            name: 'Katara'
+          },
+        ],
+        newTitle: 'Hello Sir',
+        name: ''
+      }),
+      computed: {
+        optimizedTitle() {
+          if (this.characterList.length > 5) {
+            return 'Wow such big'
+          } else {
+            return 'Much nice'
+          }
+        }
+      },
+      methods: {
+        addToFavorite(index) {
+          if (this.favCharList.includes(this.characterList[index].name)) {
+            return
+          }
+
+          this.favCharList.push(this.characterList[index].name)
+
+        },
+        changeName({ target: { value } }) {
+          this.name = value
+        },
+        addToList() {
+          this.characterList.push({
+            name: this.name
+          })
+
+          this.name = ''
+        }
+      },
+      watch: {
+        name(newVal) {
+          console.log(newVal)
+        }
+      }
+    }).mount('#app')
+  </script>
+</body>
+
 </html>
