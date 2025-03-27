@@ -1,4 +1,9 @@
-<script></script>
+<script setup>
+import UserCard from "@/components/UserCard.vue";
+import { useUsersStore } from "@/stores/usersStore";
+
+const usersStore = useUsersStore();
+</script>
 
 <template>
   <main>
@@ -7,10 +12,23 @@
       This is a place to manage various things: todos, users, posts, etc.
       Whatever your mind desires!
     </p>
+
+    <ul>
+      <UserCard
+        v-for="user in usersStore.usersList"
+        :user="user"
+        variant="home"
+        :key="`user-${user.id}`"
+      />
+    </ul>
   </main>
 </template>
 
-<style>
+<style scoped>
+ul {
+  padding-top: 15px;
+}
+
 main {
   display: flex;
   justify-content: center;
@@ -26,18 +44,5 @@ main h1 {
 
 label {
   margin-bottom: 5px;
-}
-
-input[type="email"] {
-  padding: 0.5rem;
-  margin-bottom: 30px;
-}
-
-button {
-  border: 1px solid green;
-  padding: 10px;
-  color: green;
-  background-color: rgb(213, 255, 213);
-  cursor: pointer;
 }
 </style>
